@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Order
 {
+    const STATUS_CART = 0;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
