@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="h1 mb-3 font-weight-normal text-center mt-2">{{ category.name }}</h1>
+        <h3 class="h3 mb-3 font-weight-normal">{{ category.description }}</h3>
+        <div class="row">
+            {{ render(controller(
+                'App\\Controller\\ProductController::list', {'products': products}
+            )) }}
+        </div>
+    </div>
+{% endblock %}

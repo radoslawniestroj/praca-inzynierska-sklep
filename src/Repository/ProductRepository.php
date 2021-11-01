@@ -19,6 +19,33 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    /**
+     * @param int $number
+     * @return Product[]
+     */
+    public function getNumberOfProducts(int $number): array
+    {
+        return $this->createQueryBuilder('p')
+            ->setMaxResults($number)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param int $categoryId
+     * @return Product[]
+     */
+    public function getAllProductsFromCategory(int $categoryId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('App\Entity\CategoryProduct', 'cp')
+            ->where('cp.categoryId = :categoryId')
+            ->andWhere('p.id = cp.productId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

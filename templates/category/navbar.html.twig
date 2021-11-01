@@ -1,0 +1,17 @@
+{% block body %}
+    <nav class="navbar navbar-dark bg-dark sticky-top space-left px-5">
+        <div>
+            <nav class="navbar navbar-expand-sm">
+                <ul class="navbar-nav">
+                    {% for category in categories %}
+                        <li class="nav-item">
+                            <a href="{{ path('category.detail', {id: category.id}) }}" class="btn text-light">
+                                {{ category.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </nav>
+{% endblock %}

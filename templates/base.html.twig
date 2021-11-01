@@ -57,6 +57,12 @@
             </nav>
         </div>
     </nav>
+
+    <div id="sidebar">
+        {{ render(controller(
+            'App\\Controller\\CategoryController::navbar'
+        )) }}
+    </div>
 {% endblock %}
 
 {% block body %}{% endblock %}

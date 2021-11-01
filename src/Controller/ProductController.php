@@ -38,4 +38,16 @@ class ProductController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @param array $products
+     * @return Response
+     */
+    #[Route('', name: 'list')]
+    public function list(array $products): Response
+    {
+        return $this->render('product/list.html.twig', [
+            'products' => $products
+        ]);
+    }
 }
