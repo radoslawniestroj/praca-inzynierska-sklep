@@ -49,6 +49,16 @@ class SecurityController extends AbstractController
                     'class' => 'form-control'
                 ]
             ])
+            ->add('firstname', null , [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('lastname', null , [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
@@ -77,6 +87,8 @@ class SecurityController extends AbstractController
             $data = $form->getData();
             $user = new User();
             $user->setEmail($data['email']);
+            $user->setFirstName($data['firstname']);
+            $user->setLastName($data['lastname']);
             $user->setPassword($passwordHasher->hashPassword($user, $data['password']));
 
             $em = $this->getDoctrine()->getManager();
