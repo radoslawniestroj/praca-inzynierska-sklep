@@ -5,7 +5,11 @@
 {% block body %}
     <form method="post">
         <div class="container">
-            <h1 class="h3 mb-3 font-weight-normal">Hi {{ app.user.email }}</h1>
+            <h1 class="h1 mb-3 font-weight-normal text-center">Your account</h1>
+            <h2 class="h2 mb-3 font-weight-normal text-center">Your are our client with id: {{ app.user.id }}</h2>
+            <h3 class="h3 mb-3 font-weight-normal">Firstname: {{ app.user.firstname }}</h3>
+            <h3 class="h3 mb-3 font-weight-normal">Lastname: {{ app.user.lastname }}</h3>
+            <h3 class="h3 mb-3 font-weight-normal">Email: {{ app.user.email }}</h3>
         </div>
     </form>
 {% endblock %}
