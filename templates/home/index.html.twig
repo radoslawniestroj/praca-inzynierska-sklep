@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <script src="{{ asset('build/js/index.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/index.css') }}" />
+
     <div class="container">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -14,13 +17,11 @@
                     <img class="d-block w-100" src="{{ asset('build/images/3_slider.jpg') }}" alt="Third slide">
                 </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <a id="carousel-prev" class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
+            <a id="carousel-next" class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon text-dark" aria-hidden="true"></span>
             </a>
         </div>
 
