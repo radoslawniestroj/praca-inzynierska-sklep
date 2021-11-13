@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Factory;
-
 
 use App\Entity\Order;
 use App\Entity\OrderItem;
@@ -16,19 +14,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class OrderFactory
 {
     /**
-     * Creates an order.
-     *
+     * @param int $userId
      * @return Order
      */
-    public function create(UserInterface $user = null): Order
+    public function create(int $userId): Order
     {
         $order = new Order();
-
-        if ($user === null) {
-            $userId = 0;
-        } else {
-            $userId = $user->getUserIdentifier();
-        }
 
         $order
             ->setUserId($userId)
@@ -40,18 +31,16 @@ class OrderFactory
     }
 
     /**
-     * Creates an item for a product.
-     *
      * @param Product $product
-     *
      * @return OrderItem
      */
-    public function createItem(Product $product, int $quantity): OrderItem
+    public function createItem(Product $product, int $quantity, int $cartId): OrderItem
     {
         $item = new OrderItem();
         $item->setProductId($product->getId());
         $item->setProductId($product->getId());
         $item->setQuantity($quantity);
+        $item->setOrderId($cartId);
 
         return $item;
     }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Order;
+use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,22 @@ class OrderRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Order::class);
+    }
+
+    /**
+     * @param int $categoryId
+     * @return Product[]
+     */
+    public function getAllProductsFromCategory(int $orderId, int $userId, string $status): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.id = :val')
+            ->andWhere('o.user_id = :val')
+            ->andWhere('o.exampleField = :val')
+            ->setParameter('val', $value)
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**
