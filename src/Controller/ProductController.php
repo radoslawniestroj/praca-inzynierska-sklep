@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\AddToCartType;
 use App\Manager\CartManager;
-use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +27,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $cartManager->addItemToCart($product, 1);
+            $cartManager->addItemToCart($product, $form->getData()->getQuantity());
 
             return $this->redirectToRoute('product.detail', ['id' => $product->getId()]);
         }

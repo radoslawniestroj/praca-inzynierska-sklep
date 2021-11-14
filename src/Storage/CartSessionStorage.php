@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Storage;
-
 
 use App\Entity\Order;
 use App\Repository\OrderRepository;
@@ -11,28 +9,16 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartSessionStorage
 {
-    /**
-     * The request stack.
-     *
-     * @var RequestStack
-     */
+    public const CART_ID = 'cart_id';
+    public const CART_USER_ID = 'cart_user_id';
+
+    /** @var RequestStack */
     private $requestStack;
 
-    /**
-     * The cart repository.
-     *
-     * @var OrderRepository
-     */
+    /** @var OrderRepository */
     private $cartRepository;
 
     /**
-     * @var string
-     */
-    const CART_KEY_NAME = 'cart_id';
-
-    /**
-     * CartSessionStorage constructor.
-     *
      * @param RequestStack $requestStack
      * @param OrderRepository $cartRepository
      */
@@ -43,38 +29,44 @@ class CartSessionStorage
     }
 
     /**
-     * Gets the cart in session.
-     *
      * @return Order|null
      */
     public function getCart(): ?Order
     {
         return $this->cartRepository->findOneBy([
-            'id' => $this->getCartId(),
+            'userId' => $this->getCartUserId(),
             'status' => Order::STATUS_CART
         ]);
     }
 
     /**
-     * Sets the cart in session.
-     *
      * @param Order $cart
      */
     public function setCart(Order $cart): void
     {
-        $this->getSession()->set(self::CART_KEY_NAME, $cart->getId());
+        $this->getSession()->set(self::CART_ID, $cart->getId());
+        $this->getSession()->set(self::CART_USER_ID, $cart->getUserId());
     }
 
     /**
-     * Returns the cart id.
-     *
      * @return int|null
      */
     private function getCartId(): ?int
     {
-        return $this->getSession()->get(self::CART_KEY_NAME);
+        return $this->getSession()->get(self::CART_ID);
     }
 
+    /**
+     * @return int|null
+     */
+    private function getCartUserId(): ?int
+    {
+        return $this->getSession()->get(self::CART_USER_ID);
+    }
+
+    /**
+     * @return SessionInterface
+     */
     private function getSession(): SessionInterface
     {
         return $this->requestStack->getSession();

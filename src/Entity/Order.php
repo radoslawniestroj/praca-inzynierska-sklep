@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Order
 {
     const STATUS_CART = 0;
+    const STATUS_NEW_ORDER = 1;
 
     /**
      * @ORM\Id
@@ -39,6 +40,31 @@ class Order
      * @ORM\Column(type="integer")
      */
     private $userId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $postCode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $street;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $shippingMethod;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $paymentMethod;
 
     public function getId(): ?int
     {
@@ -89,6 +115,66 @@ class Order
     public function setUserId(int $userId): self
     {
         $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPostCode(): ?string
+    {
+        return $this->postCode;
+    }
+
+    public function setPostCode(?string $postCode): self
+    {
+        $this->postCode = $postCode;
+
+        return $this;
+    }
+
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(?string $street): self
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    public function getShippingMethod(): ?string
+    {
+        return $this->shippingMethod;
+    }
+
+    public function setShippingMethod(?string $shippingMethod): self
+    {
+        $this->shippingMethod = $shippingMethod;
+
+        return $this;
+    }
+
+    public function getPaymentMethod(): ?string
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(?string $paymentMethod): self
+    {
+        $this->paymentMethod = $paymentMethod;
 
         return $this;
     }

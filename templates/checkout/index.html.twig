@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CheckoutController!{% endblock %}
+
+{% block body %}
+    <form method="post">
+        <div class="container">
+            <h1 class="h2 mb-3 font-weight-normal mt-2">Checkout</h1>
+            {{ form(form) }}
+        </div>
+    </form>
+{% endblock %}

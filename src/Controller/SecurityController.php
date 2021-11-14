@@ -59,6 +59,11 @@ class SecurityController extends AbstractController
                     'class' => 'form-control'
                 ]
             ])
+            ->add('phone_number', null , [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
@@ -89,6 +94,7 @@ class SecurityController extends AbstractController
             $user->setEmail($data['email']);
             $user->setFirstName($data['firstname']);
             $user->setLastName($data['lastname']);
+            $user->setPhoneNumber($data['phone_number']);
             $user->setPassword($passwordHasher->hashPassword($user, $data['password']));
 
             $em = $this->getDoctrine()->getManager();
