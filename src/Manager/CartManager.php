@@ -122,6 +122,12 @@ class CartManager
         ]);
     }
 
+    public function setCurrentCart()
+    {
+        $cart = $this->getCurrentCart();
+
+        $this->cartSessionStorage->setCart($cart);
+    }
 
     /**
      * @param Order $cart

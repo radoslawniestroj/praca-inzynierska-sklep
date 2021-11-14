@@ -23,7 +23,7 @@ class OrderItem
     private $productId;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
     private $quantity;
 

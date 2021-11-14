@@ -20,22 +20,6 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    /**
-     * @param int $categoryId
-     * @return Product[]
-     */
-    public function getAllProductsFromCategory(int $orderId, int $userId, string $status): array
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.id = :val')
-            ->andWhere('o.user_id = :val')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getResult();
-    }
-
     // /**
     //  * @return Order[] Returns an array of Order objects
     //  */
