@@ -22,11 +22,16 @@ class CartController extends AbstractController
      * @param CartManager $cartManager
      * @param OrderItemRepository $orderItemRepository
      * @param ProductRepository $productRepository
+     * @param Request $request
      * @return Response
      */
     #[Route('/', name: 'detail')]
-    public function index(CartManager $cartManager, OrderItemRepository $orderItemRepository, ProductRepository $productRepository, Request $request): Response
-    {
+    public function index(
+        CartManager $cartManager,
+        OrderItemRepository $orderItemRepository,
+        ProductRepository $productRepository,
+        Request $request
+    ): Response {
         $cart = $cartManager->getCurrentCart();
 
         $items = $orderItemRepository->findBy([
@@ -36,7 +41,6 @@ class CartController extends AbstractController
         $products = [];
         $quantityItems = [];
         $cartTotal = 0;
-
 
         foreach ($items as $item) {
             $product = $productRepository->findOneBy(['id' => $item->getProductId()]);
@@ -55,7 +59,6 @@ class CartController extends AbstractController
                 'priceTotal' => $priceTotalItem
             ];
         }
-
 
         $form = $this->createForm(ClearCartListenerType::class);
 
@@ -88,7 +91,6 @@ class CartController extends AbstractController
     public function list(array $quantityItems, array $products, array $items, $form): Response
     {
         dump($form);   /////////////////////////
-//        die();
 
         return $this->render('cart/list.html.twig', [
             'quantityItems' => $quantityItems,
@@ -98,19 +100,39 @@ class CartController extends AbstractController
         ]);
     }
 
+//    /**
+//     * @param array $quantityItems
+//     * @param array $products
+//     * @param array $items
+//     * @return Response
+//     */
+//    #[Route('/save', name: 'save')]
+//    public function save(Request $request): Response
+//    {
+//        dump($request);
+//        $searchString = $request->get('quantity_28');
+//        dump($searchString);
+//
+//        return $this->render('cart/clear.html.twig', []);
+//    }
+
     /**
-     * @param array $quantityItems
-     * @param array $products
-     * @param array $items
+     * @param CartManager $cartManager
+     * @param OrderItemRepository $orderItemRepository
+     * @param ProductRepository $productRepository
+     * @param Request $request
      * @return Response
      */
-    #[Route('', name: 'save')]
-    public function save(array $quantityItems, array $products, array $items): Response
+    #[Route('/clear', name: 'clear')]
+    public function clear(
+        CartManager $cartManager,
+        OrderItemRepository $orderItemRepository,
+        ProductRepository $productRepository,
+        Request $request
+    ): Response
     {
-        return $this->render('cart/list.html.twig', [
-            'quantityItems' => $quantityItems,
-            'products' => $products,
-            'items' => $items
-        ]);
+        $cartManager->clearCart();
+
+        return $this->index($cartManager, $orderItemRepository, $productRepository, $request);
     }
 }

@@ -121,30 +121,62 @@ class CartManager
         ]);
     }
 
-    public function setCurrentCart()
+    /**
+     * @return Order
+     */
+    public function setCurrentCart(): Order
     {
         $cart = $this->getCurrentCart();
 
         $this->cartSessionStorage->setCart($cart);
+
+        return $cart;
     }
 
     /**
      * @param Order $cart
+     * @return Order
      */
-    public function saveCart(Order $cart): void
+    public function saveCart(Order $cart): Order
     {
         $this->entityManager->persist($cart);
         $this->entityManager->flush();
 
         $this->cartSessionStorage->setCart($cart);
+
+        return $cart;
     }
 
     /**
      * @param OrderItem $item
+     * @return OrderItem
      */
-    public function saveItem(OrderItem $item): void
+    public function saveItem(OrderItem $item): OrderItem
     {
         $this->entityManager->persist($item);
         $this->entityManager->flush();
+
+        return $item;
+    }
+
+    /**
+     * @param Order $cart
+     * @return Order
+     */
+    public function clearCart(): Order
+    {
+        $cart = $this->getCurrentCart();
+
+        $items = $this->orderItemRepository->findBy([
+            'orderId' => $cart->getId(),
+        ]);
+
+        foreach ($items as $item) {
+            $this->entityManager->remove($item);
+        }
+
+        $this->entityManager->flush();
+
+        return $cart;
     }
 }
