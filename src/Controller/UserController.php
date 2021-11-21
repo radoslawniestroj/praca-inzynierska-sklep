@@ -6,11 +6,14 @@ use App\Manager\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 #[Route('/user', name: 'user.')]
 class UserController extends AbstractController
 {
+    /**
+     * @param CartManager $cartManager
+     * @return Response
+     */
     #[Route('/', name: 'index')]
     public function index(CartManager $cartManager): Response
     {
@@ -22,7 +25,7 @@ class UserController extends AbstractController
             $cartManager->setCurrentCart();
         }
 
-        dump($cartManager->getCurrentCart());
+        dump($cartManager->getCurrentCart()); ///////////////////////////////////////////
 
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',

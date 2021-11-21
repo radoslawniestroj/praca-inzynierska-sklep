@@ -9,9 +9,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class CategoryController
+ * @package App\Controller
+ */
 #[Route('/category', name: 'category.')]
 class CategoryController extends AbstractController
 {
+    /**
+     * @param Category $category
+     * @param ProductRepository $productRepository
+     * @return Response
+     */
     #[Route('/{id}', name: 'detail')]
     public function index(Category $category, ProductRepository $productRepository): Response
     {
@@ -23,6 +32,10 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    /**
+     * @param CategoryRepository $categoryRepository
+     * @return Response
+     */
     #[Route('', name: 'navbar')]
     public function navbar(CategoryRepository $categoryRepository): Response
     {

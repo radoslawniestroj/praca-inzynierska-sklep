@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class ProductController
+ * @package App\Controller
+ */
 #[Route('/product', name: 'product.')]
 class ProductController extends AbstractController
 {
