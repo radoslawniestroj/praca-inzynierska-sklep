@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Order;
-use App\Repository\OrderRepository;
 use App\Storage\CartSessionStorage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class CheckoutController
+ * @package App\Controller
+ */
 #[Route('/checkout', name: 'checkout.')]
 class CheckoutController extends AbstractController
 {

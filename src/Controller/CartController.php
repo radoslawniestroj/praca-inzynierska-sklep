@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Form\CartType;
 use App\Form\EventListener\ClearCartListenerType;
 use App\Manager\CartManager;
 use App\Repository\OrderItemRepository;
@@ -12,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class CartController
+ * @package App\Controller
+ */
 #[Route('/cart', name: 'cart.')]
 class CartController extends AbstractController
 {
@@ -84,7 +87,7 @@ class CartController extends AbstractController
     #[Route('', name: 'list')]
     public function list(array $quantityItems, array $products, array $items, $form): Response
     {
-        dump($form);
+        dump($form);   /////////////////////////
 //        die();
 
         return $this->render('cart/list.html.twig', [

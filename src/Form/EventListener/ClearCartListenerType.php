@@ -9,6 +9,10 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class ClearCartListenerType
+ * @package App\Form\EventListener
+ */
 class ClearCartListenerType extends AbstractType
 {
     /**

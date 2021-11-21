@@ -7,16 +7,18 @@ use App\Repository\OrderRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * Class CartSessionStorage
+ * @package App\Storage
+ */
 class CartSessionStorage
 {
     public const CART_ID = 'cart_id';
     public const CART_USER_ID = 'cart_user_id';
 
-    /** @var RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /** @var OrderRepository */
-    private $cartRepository;
+    private OrderRepository $cartRepository;
 
     /**
      * @param RequestStack $requestStack

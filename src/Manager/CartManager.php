@@ -11,22 +11,21 @@ use App\Storage\CartSessionStorage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
+/**
+ * Class CartManager
+ * @package App\Manager
+ */
 class CartManager
 {
-    /** @var CartSessionStorage */
-    private $cartSessionStorage;
+    private CartSessionStorage $cartSessionStorage;
 
-    /** @var Security */
-    private $security;
+    private Security $security;
 
-    /** @var OrderFactory */
-    private $cartFactory;
+    private OrderFactory $cartFactory;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /** @var OrderItemRepository */
-    private $orderItemRepository;
+    private OrderItemRepository $orderItemRepository;
 
     /**
      * @param CartSessionStorage $cartStorage

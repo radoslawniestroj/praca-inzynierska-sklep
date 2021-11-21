@@ -5,7 +5,6 @@ namespace App\Factory;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Product;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class OrderFactory
@@ -32,6 +31,8 @@ class OrderFactory
 
     /**
      * @param Product $product
+     * @param int $quantity
+     * @param int $cartId
      * @return OrderItem
      */
     public function createItem(Product $product, int $quantity, int $cartId): OrderItem
