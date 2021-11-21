@@ -3,8 +3,8 @@
     <div class="card-header bg-dark text-white d-flex">
         <h5 class="px-1">Items</h5>
         <div class="ml-auto">
-{#            <a href="{{ path('cart.save', {id: items}) }}" class="btn btn-warning">Save</a>#}
-{#            <a href="{{ path('cart.clear')}}" class="btn btn-light">Clear</a>#}
+{#            <a href="{{ path('cart.save') }}" class="btn btn-warning">Save</a>#}
+            <a href="{{ path('cart.clear')}}" class="btn btn-light">Clear</a>
 {#            <a onclick="location.href = {{ path('cart.clear') }}" class="btn btn-light">Clear</a>#}
 {#            <button class="btn btn-light" type="submit">Clear</button>#}
 
@@ -24,7 +24,12 @@
                     <small>{{ quantityItem.description[:50] }}...</small>
                 </div>
                 <div class="flex-fill mr-2">
-                    <input class="quantity-input" id="quantity_{{ quantityItem.id }}" value="{{ quantityItem.quantity }}" placeholder="quantity" type="text">
+                    <input class="quantity-input"
+                           id="quantity_{{ quantityItem.id }}"
+                           name="quantity_{{ quantityItem.id }}"
+                           value="{{ quantityItem.quantity }}"
+                           placeholder="quantity"
+                           type="text">
                 </div>
                 <div class="flex-fill mr-2 text-right">
                     <b>{{ quantityItem.price }} €</b>
