@@ -18,9 +18,10 @@ class OrderItem
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Product::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $productId;
+    private $product;
 
     /**
      * @ORM\Column(type="integer")
@@ -28,23 +29,24 @@ class OrderItem
     private $quantity;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Order::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $orderId;
+    private $order;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getProductId(): ?int
+    public function getProduct(): ?Product
     {
-        return $this->productId;
+        return $this->product;
     }
 
-    public function setProductId(int $productId): self
+    public function setProductId(Product $product): self
     {
-        $this->productId = $productId;
+        $this->product = $product;
 
         return $this;
     }
@@ -61,14 +63,14 @@ class OrderItem
         return $this;
     }
 
-    public function getOrderId(): ?int
+    public function getOrderId(): ?Order
     {
-        return $this->orderId;
+        return $this->order->getId();
     }
 
-    public function setOrderId(int $orderId): self
+    public function setOrderId(Order $order): self
     {
-        $this->orderId = $orderId;
+        $this->order = $order;
 
         return $this;
     }

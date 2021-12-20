@@ -5,6 +5,7 @@ namespace App\Factory;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Product;
+use App\Entity\User;
 
 /**
  * Class OrderFactory
@@ -13,15 +14,15 @@ use App\Entity\Product;
 class OrderFactory
 {
     /**
-     * @param int $userId
+     * @param User $user
      * @return Order
      */
-    public function create(int $userId): Order
+    public function create(User $user): Order
     {
         $order = new Order();
 
         $order
-            ->setUserId($userId)
+            ->setUser($user)
             ->setStatus(Order::STATUS_CART)
             ->setCreatedAt(new \DateTimeImmutable())
             ->setUpdatedAt(new \DateTimeImmutable());
@@ -32,16 +33,15 @@ class OrderFactory
     /**
      * @param Product $product
      * @param int $quantity
-     * @param int $cartId
+     * @param Order $cart
      * @return OrderItem
      */
-    public function createItem(Product $product, int $quantity, int $cartId): OrderItem
+    public function createItem(Product $product, int $quantity, Order $cart): OrderItem
     {
         $item = new OrderItem();
-        $item->setProductId($product->getId());
-        $item->setProductId($product->getId());
+        $item->setProductId($product);
         $item->setQuantity($quantity);
-        $item->setOrderId($cartId);
+        $item->setOrderId($cart);
 
         return $item;
     }

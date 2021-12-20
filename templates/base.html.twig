@@ -38,6 +38,11 @@
                                 Logout
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ path('cart.detail') }}" class="btn btn-light">
+                                Cart
+                            </a>
+                        </li>
                     {% else %}
                         <li class="nav-item">
                             <a href="{{ path('app_login') }}" class="btn text-light">
@@ -50,11 +55,6 @@
                             </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a href="{{ path('cart.detail') }}" class="btn btn-light">
-                            Cart
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </div>

@@ -39,9 +39,9 @@ class ProductRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->innerJoin('App\Entity\CategoryProduct', 'cp')
-            ->where('cp.categoryId = :categoryId')
-            ->andWhere('p.id = cp.productId')
-            ->setParameter('categoryId', $categoryId)
+            ->where('cp.category = :category')
+            ->andWhere('p.id = cp.product')
+            ->setParameter('category', $categoryId)
             ->getQuery()
             ->getResult();
     }

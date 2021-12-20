@@ -3,6 +3,7 @@
 namespace App\Storage;
 
 use App\Entity\Order;
+use App\Entity\User;
 use App\Repository\OrderRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class CartSessionStorage
 {
     public const CART_ID = 'cart_id';
-    public const CART_USER_ID = 'cart_user_id';
+    public const CART_USER = 'cart_user';
 
     private RequestStack $requestStack;
 
@@ -36,7 +37,7 @@ class CartSessionStorage
     public function getCart(): ?Order
     {
         return $this->cartRepository->findOneBy([
-            'userId' => $this->getCartUserId(),
+            'user' => $this->getCartUserId(),
             'status' => Order::STATUS_CART
         ]);
     }
@@ -47,7 +48,7 @@ class CartSessionStorage
     public function setCart(Order $cart): void
     {
         $this->getSession()->set(self::CART_ID, $cart->getId());
-        $this->getSession()->set(self::CART_USER_ID, $cart->getUserId());
+        $this->getSession()->set(self::CART_USER, $cart->getUser());
     }
 
     /**
@@ -59,11 +60,11 @@ class CartSessionStorage
     }
 
     /**
-     * @return int|null
+     * @return User|null
      */
-    private function getCartUserId(): ?int
+    private function getCartUserId(): ?User
     {
-        return $this->getSession()->get(self::CART_USER_ID);
+        return $this->getSession()->get(self::CART_USER);
     }
 
     /**
