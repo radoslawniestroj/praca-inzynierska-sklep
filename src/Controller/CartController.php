@@ -32,10 +32,14 @@ class CartController extends AbstractController
         ProductRepository $productRepository,
         Request $request
     ): Response {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $cart = $cartManager->getCurrentCart();
 
         $items = $orderItemRepository->findBy([
-            'orderId' => $cart->getId(),
+            'order' => $cart,
         ]);
 
         $products = [];
@@ -43,7 +47,7 @@ class CartController extends AbstractController
         $cartTotal = 0;
 
         foreach ($items as $item) {
-            $product = $productRepository->findOneBy(['id' => $item->getProductId()]);
+            $product = $productRepository->findOneBy(['id' => $item]);
             $products[] = $product;
 
             $priceTotalItem = $item->getQuantity() * $product->getPrice();
@@ -51,7 +55,7 @@ class CartController extends AbstractController
 
             $quantityItems[] = [
                 'id' => $item->getId(),
-                'productId' => $item->getProductId(),
+                'productId' => $item->getProduct(),
                 'quantity' => $item->getQuantity(),
                 'name' => $product->getName(),
                 'description' => $product->getDescription(),

@@ -58,7 +58,7 @@ class CartManager
         $cart = $this->getCurrentCart();
         $this->saveCart($cart);
 
-        $item = $this->addItem($product, $quantity, $cart->getId());
+        $item = $this->addItem($product, $quantity, $cart);
         $this->saveItem($item);
 
         return $cart;
@@ -74,13 +74,7 @@ class CartManager
         if (!$cart) {
             $user = $this->security->getUser();
 
-            if ($user === null) {
-                $userId = 0;
-            } else {
-                $userId = (int) $user->getId();
-            }
-
-            $cart = $this->cartFactory->create($userId);
+            $cart = $this->cartFactory->create($user);
         }
 
         return $cart;
@@ -89,12 +83,12 @@ class CartManager
     /**
      * @param Product $product
      * @param int $quantity
-     * @param int $cartId
+     * @param Order $cart
      * @return OrderItem
      */
-    public function addItem(Product $product, int $quantity, int $cartId): OrderItem
+    public function addItem(Product $product, int $quantity, Order $cart): OrderItem
     {
-        $item = $this->getItemFromCart($cartId, $product->getId());
+        $item = $this->getItemFromCart($cart, $product);
 
         if ($item !== null) {
             $quantity += $item->getQuantity();
@@ -102,22 +96,22 @@ class CartManager
             $item->setQuantity($quantity);
 
         } else {
-            $item = $this->cartFactory->createItem($product, $quantity, $cartId);
+            $item = $this->cartFactory->createItem($product, $quantity, $cart);
         }
 
         return $item;
     }
 
     /**
-     * @param int $cartId
-     * @param int $productId
+     * @param Order $cart
+     * @param Product $product
      * @return OrderItem|null
      */
-    public function getItemFromCart(int $cartId, int $productId): OrderItem|null
+    public function getItemFromCart(Order $cart, Product $product): OrderItem|null
     {
         return $this->orderItemRepository->findOneBy([
-            'orderId' => $cartId,
-            'productId' => $productId
+            'order' => $cart,
+            'product' => $product
         ]);
     }
 
@@ -139,8 +133,8 @@ class CartManager
      */
     public function saveCart(Order $cart): Order
     {
+        dump($cart);
         $this->entityManager->persist($cart);
-        $this->entityManager->flush();
 
         $this->cartSessionStorage->setCart($cart);
 
@@ -153,6 +147,7 @@ class CartManager
      */
     public function saveItem(OrderItem $item): OrderItem
     {
+        dump($item);
         $this->entityManager->persist($item);
         $this->entityManager->flush();
 
@@ -168,7 +163,7 @@ class CartManager
         $cart = $this->getCurrentCart();
 
         $items = $this->orderItemRepository->findBy([
-            'orderId' => $cart->getId(),
+            'order' => $cart,
         ]);
 
         foreach ($items as $item) {
