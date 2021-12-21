@@ -25,8 +25,6 @@ class UserController extends AbstractController
             $cartManager->setCurrentCart();
         }
 
-        dump($cartManager->getCurrentCart()); ///////////////////////////////////////////
-
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
         ]);

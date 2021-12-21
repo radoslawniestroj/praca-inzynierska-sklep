@@ -4,10 +4,8 @@ namespace App\Form\EventListener;
 
 use App\Entity\Order;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class RemoveCartItemListenerType
@@ -16,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RemoveCartItemListenerType extends AbstractType
 {
     /**
-     * @inheritDoc
+     * @return array
      */
     public static function getSubscribedEvents(): array
     {
@@ -24,8 +22,6 @@ class RemoveCartItemListenerType extends AbstractType
     }
 
     /**
-     * Removes items from the cart based on the data sent from the user.
-     *
      * @param FormEvent $event
      */
     public function postSubmit(FormEvent $event): void

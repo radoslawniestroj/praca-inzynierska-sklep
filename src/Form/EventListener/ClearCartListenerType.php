@@ -4,10 +4,8 @@ namespace App\Form\EventListener;
 
 use App\Entity\Order;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ClearCartListenerType
@@ -16,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ClearCartListenerType extends AbstractType
 {
     /**
-     * @inheritDoc
+     * @return array
      */
     public static function getSubscribedEvents(): array
     {
@@ -24,8 +22,6 @@ class ClearCartListenerType extends AbstractType
     }
 
     /**
-     * Removes all items from the cart when the clear button is clicked.
-     *
      * @param FormEvent $event
      */
     public function postSubmit(FormEvent $event): void
@@ -37,12 +33,10 @@ class ClearCartListenerType extends AbstractType
             return;
         }
 
-        // Is the clear button clicked?
         if (!$form->get('clear')->isClicked()) {
             return;
         }
 
-        // Clears the cart
         $cart->removeItems();
     }
 }
