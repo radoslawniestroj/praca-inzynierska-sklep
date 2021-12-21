@@ -133,7 +133,6 @@ class CartManager
      */
     public function saveCart(Order $cart): Order
     {
-        dump($cart);
         $this->entityManager->persist($cart);
 
         $this->cartSessionStorage->setCart($cart);
@@ -147,7 +146,6 @@ class CartManager
      */
     public function saveItem(OrderItem $item): OrderItem
     {
-        dump($item);
         $this->entityManager->persist($item);
         $this->entityManager->flush();
 
@@ -155,7 +153,6 @@ class CartManager
     }
 
     /**
-     * @param Order $cart
      * @return Order
      */
     public function clearCart(): Order

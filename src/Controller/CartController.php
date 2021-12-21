@@ -68,12 +68,6 @@ class CartController extends AbstractController
 
         $form->handleRequest($request);
 
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $cartManager->addItemToCart($product, $form->getData()->getQuantity());
-//
-//            return $this->redirectToRoute('product.detail', ['id' => $product->getId()]);
-//        }
-
         return $this->render('cart/index.html.twig', [
             'items' => $items,
             'products' => $products,
@@ -94,8 +88,6 @@ class CartController extends AbstractController
     #[Route('', name: 'list')]
     public function list(array $quantityItems, array $products, array $items, $form): Response
     {
-        dump($form);   /////////////////////////
-
         return $this->render('cart/list.html.twig', [
             'quantityItems' => $quantityItems,
             'products' => $products,
@@ -103,22 +95,6 @@ class CartController extends AbstractController
             'form' => $form
         ]);
     }
-
-//    /**
-//     * @param array $quantityItems
-//     * @param array $products
-//     * @param array $items
-//     * @return Response
-//     */
-//    #[Route('/save', name: 'save')]
-//    public function save(Request $request): Response
-//    {
-//        dump($request);
-//        $searchString = $request->get('quantity_28');
-//        dump($searchString);
-//
-//        return $this->render('cart/clear.html.twig', []);
-//    }
 
     /**
      * @param CartManager $cartManager
