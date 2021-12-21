@@ -13,20 +13,26 @@
                 <h2>{{ product.price }} €</h2>
                 <hr>
                 <b>Description: </b>{{ product.description }}
-                {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light'}}) }}
-                <div class="form-group">
-                    {{ form_label(form.quantity) }}
-                    {{ form_widget(form.quantity, {
-                        'attr': {
-                            'class': 'form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
-                        }
-                    }) }}
-                    <div class="invalid-feedback">
-                        {{ form_errors(form.quantity) }}
+                {% if app.user %}
+                    {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light'}}) }}
+                    <div class="form-group">
+                        {{ form_label(form.quantity) }}
+                        {{ form_widget(form.quantity, {
+                            'attr': {
+                                'class': 'form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
+                            }
+                        }) }}
+                        <div class="invalid-feedback">
+                            {{ form_errors(form.quantity) }}
+                        </div>
                     </div>
-                </div>
-                {{ form_widget(form.add, {'attr': {'class': 'btn btn-warning w-25'}}) }}
-                {{ form_end(form) }}
+                    {{ form_widget(form.add, {'attr': {'class': 'btn btn-warning w-25'}}) }}
+                    {{ form_end(form) }}
+                {% else %}
+                    <div class="mt-4 p-4 bg-light">
+                        <b>Adding to cart is available only for logged in users.</b>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
